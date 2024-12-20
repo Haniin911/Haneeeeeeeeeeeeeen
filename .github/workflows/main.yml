@@ -1,1 +1,18 @@
+on:
+  push:
+    branches:
+      - master
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: "docker login"
+        run: docker login --username ${{secrets.USERNAME}} --password ${{secrets.PASSWORD}}
+      - name: "docker build icmage"
+        run: docker build -t ${{secrets.USERNAME}}/image1 .
+      - name: "docker push"
+        run: docker push ${{secrets.USERNAME}}/image1
 
